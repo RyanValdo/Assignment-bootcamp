@@ -66,6 +66,7 @@ void printLinkedList1()
 {
   Node *curr = head1;
 
+  printf("First LinkedList  : ");
   while (curr)
   {
     printf("%d ", curr->angka);
@@ -78,6 +79,7 @@ void printLinkedList2()
 {
   Node *curr = head2;
 
+  printf("Second LinkedList : ");
   while (curr)
   {
     printf("%d ", curr->angka);
@@ -90,12 +92,23 @@ void printLinkedList3()
 {
   Node *curr = head3;
 
+  printf("Sorted LinkedList : ");
   while (curr)
   {
     printf("%d ", curr->angka);
     curr = curr->next;
   }
   printf("\n");
+}
+
+void findMaxMin()
+{
+  Node *max = tail3;
+  Node *min = head3;
+
+  printf("Max = %d\n", max->angka);
+  printf("Min = %d\n", min->angka);
+  printf("Range = %d\n", max->angka - min->angka);
 }
 
 int main()
@@ -137,6 +150,7 @@ int main()
     pushTail3(curr2->angka);
     curr2 = curr2->next;
   }
+
   printLinkedList3();
 
   return 0;
