@@ -66,6 +66,7 @@ void printLinkedList1()
 {
   Node *curr = head1;
 
+  printf("First LinkedList  : ");
   while (curr)
   {
     printf("%d ", curr->angka);
@@ -78,6 +79,7 @@ void printLinkedList2()
 {
   Node *curr = head2;
 
+  printf("Second LinkedList : ");
   while (curr)
   {
     printf("%d ", curr->angka);
