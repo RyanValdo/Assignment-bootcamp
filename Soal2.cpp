@@ -6,61 +6,21 @@ struct Node
 {
   int angka;
   Node *next;
-} * head, *tail;
+} * head1, *tail1, *head2, *tail2, *head3, *tail3;
 
-struct Node1
-{
-  int angka;
-  Node1 *next;
-} * head1, *tail1;
-
-struct Node2
-{
-  int angka;
-  Node2 *next;
-} * head2, *tail2;
-
-Node *createNode(int angka)
+Node *createNode(int value)
 {
   Node *newNode = (Node *)malloc(sizeof(Node));
-  newNode->angka = angka;
+  newNode->angka = value;
   newNode->next = NULL;
+
   return newNode;
 }
 
-Node1 *createNode1(int angka)
+void pushTail1(int value)
 {
-  Node1 *newNode1 = (Node1 *)malloc(sizeof(Node1));
-  newNode1->angka = angka;
-  newNode1->next = NULL;
-  return newNode1;
-}
+  Node *temp = createNode(value);
 
-Node2 *createNode2(int angka)
-{
-  Node2 *newNode2 = (Node2 *)malloc(sizeof(Node2));
-  newNode2->angka = angka;
-  newNode2->next = NULL;
-  return newNode2;
-}
-
-void pushTail(int angka)
-{
-  Node *temp = createNode(angka);
-  if (!head)
-  {
-    head = tail = temp;
-  }
-  else
-  {
-    tail->next = temp;
-    tail = temp;
-  }
-}
-
-void pushTail1(int angka)
-{
-  Node1 *temp = createNode1(angka);
   if (!head1)
   {
     head1 = tail1 = temp;
@@ -72,9 +32,10 @@ void pushTail1(int angka)
   }
 }
 
-void pushTail2(int angka)
+void pushTail2(int value)
 {
-  Node2 *temp = createNode2(angka);
+  Node *temp = createNode(value);
+
   if (!head2)
   {
     head2 = tail2 = temp;
@@ -86,9 +47,24 @@ void pushTail2(int angka)
   }
 }
 
-void printList()
+void pushTail3(int value)
 {
-  Node *curr = head;
+  Node *temp = createNode(value);
+
+  if (!head3)
+  {
+    head3 = tail3 = temp;
+  }
+  else
+  {
+    tail3->next = temp;
+    tail3 = temp;
+  }
+}
+
+void printLinkedList1()
+{
+  Node *curr = head1;
 
   while (curr)
   {
@@ -98,9 +74,9 @@ void printList()
   printf("\n");
 }
 
-void printList1()
+void printLinkedList2()
 {
-  Node1 *curr = head1;
+  Node *curr = head2;
 
   while (curr)
   {
@@ -110,10 +86,11 @@ void printList1()
   printf("\n");
 }
 
-void printList2()
+void printLinkedList3()
 {
-  Node2 *curr = head2;
+  Node *curr = head3;
 
+  printf("Sorted LinkedList : ");
   while (curr)
   {
     printf("%d ", curr->angka);
@@ -124,66 +101,56 @@ void printList2()
 
 void findMaxMin()
 {
-  Node2 *curr = head2;
-  Node2 *max = curr;
-  Node2 *min = curr;
-  while (curr)
-  {
-    if (curr->angka <= min->angka)
-    {
-      min = curr;
-    }
-    if (curr->angka >= max->angka)
-    {
-      max = curr;
-    }
-    curr = curr->next;
-  }
-  printf("%d\n", max->angka - min->angka);
+  Node *max = tail3;
+  Node *min = head3;
+
+  printf("Max = %d\n", max->angka);
+  printf("Min = %d\n", min->angka);
+  printf("Range = %d\n", max->angka - min->angka);
 }
 
 int main()
 {
-  pushTail(3);
-  pushTail(5);
-  pushTail(7);
-  printList();
+
+  pushTail1(2);
   pushTail1(4);
   pushTail1(6);
-  pushTail1(8);
-  printList1();
+  printLinkedList1();
+  pushTail2(3);
+  pushTail2(5);
+  pushTail2(7);
+  printLinkedList2();
 
-  Node *curr = head;
-  Node1 *curr1 = head1;
-  while (curr && curr1)
+  Node *curr1 = head1;
+  Node *curr2 = head2;
+
+  while (curr1 && curr2)
   {
-    if (curr->angka <= curr1->angka)
+    if (curr1->angka < curr2->angka)
     {
-      pushTail2(curr->angka);
-      curr = curr->next;
+      pushTail3(curr1->angka);
+      curr1 = curr1->next;
     }
     else
     {
-      pushTail2(curr1->angka);
-      curr1 = curr1->next;
+      pushTail3(curr2->angka);
+      curr2 = curr2->next;
     }
   }
 
-  while (curr)
-  {
-    pushTail2(curr->angka);
-    curr = curr->next;
-  }
   while (curr1)
   {
-    pushTail2(curr1->angka);
+    pushTail3(curr1->angka);
     curr1 = curr1->next;
   }
+  while (curr2)
+  {
+    pushTail3(curr2->angka);
+    curr2 = curr2->next;
+  }
 
-  printList2();
-
-  printf("The Difference between Max and Min value is ");
-
+  printLinkedList3();
   findMaxMin();
+
   return 0;
 }
